@@ -28,7 +28,7 @@ fs.readdir("./commands/", (err, files) => {
 
 client.on("ready", async () => {
     console.log(`${client.user.tag} is banning users`);
-    client.user.setActivity(`Scripting ${client.user.username}`, { type: "WATCHING" });
+    client.user.setActivity(`Over ${memberCount} Members Of The Guild`, { type: "WATCHING" });
 });
 
 client.on("message", async message => {
@@ -55,9 +55,14 @@ client.on("message", async message => {
     client.on('guildMemberAdd', member => {
         var channel = member.guild.channels.cache.find(ch => ch.name === 'welcome');
         if (!channel) return;
-        channel.send(`${member} Is Trying Out A New Life`);
+        channel.send(`${ member } Is Trying Out A New Life`);
     })
 
+});
+bot.on('ready', function () {
+    setInterval(function () {
+        var memberCount = guild.members.filter(member => !member.user.bot).size;
+    }, MIN_INTERVAL);
 });
 
 client.login(process.env.token);
